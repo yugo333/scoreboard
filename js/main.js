@@ -15,23 +15,56 @@
   let scoreA = 0;
   let scoreB = 0;
 
-  function wine() {
-    alert("nextGame");
+  function reset() {
     pointsA.innerHTML = 0;
     pointsB.innerHTML = 0;
+    countsA.innerHTML = 0;
+    countsB.innerHTML = 0;
     pointA = 0;
     pointB = 0;
+    scoreA = 0;
+    scoreB = 0;
+  }
+
+  function wine() {
+    if (scoreA >= 3 && scoreB <= 2) {
+      alert("win!!! A Team");
+      reset();
+    } else if (scoreB >= 3 && scoreA <= 2) {
+      alert("win!!! B Team");
+      reset();
+    } else {
+      alert("nextGame");
+      pointsA.innerHTML = 0;
+      pointsB.innerHTML = 0;
+      pointA = 0;
+      pointB = 0;
+    }
   }
 
   plusA.addEventListener("click", () => {
-    if (pointA >= 25 && pointA - pointB === 1) {
-      pointA++;
-      pointsA.innerHTML = pointA;
-    } else if (pointA >= 25 && pointA - pointB > 1) {
+    if (scoreA === 2 && scoreB === 2) {
+      if (pointA >= 14 && pointA - pointB >= 1) {
+        alert("win!!! A Team");
+        reset();
+      } else if (pointA >= 14 && pointA - pointB === 1) {
+        pointA++;
+        pointsA.innerHTML = pointA;
+      } else if (pointA === 14 && pointB <= 13) {
+        alert("win!!! A Team");
+        reset();
+      } else {
+        pointA++;
+        pointsA.innerHTML = pointA;
+      }
+    } else if (pointA >= 24 && pointA - pointB >= 1) {
       scoreA++;
       countsA.innerHTML = scoreA;
       wine();
-    } else if (pointA === 25 && pointB <= 23) {
+    } else if (pointA >= 24 && pointA - pointB === 1) {
+      pointA++;
+      pointsA.innerHTML = pointA;
+    } else if (pointA === 24 && pointB <= 23) {
       scoreA++;
       countsA.innerHTML = scoreA;
       wine();
@@ -50,14 +83,28 @@
   });
 
   plusB.addEventListener("click", () => {
-    if (pointB >= 25 && pointB - pointA === 1) {
-      pointB++;
-      pointsB.innerHTML = pointB;
-    } else if (pointB >= 25 && pointB - pointA > 1) {
+    if (scoreA === 2 && scoreB === 2) {
+      if (pointB >= 14 && pointB - pointA >= 1) {
+        alert("win!!! B Team");
+        reset();
+      } else if (pointB >= 14 && pointB - pointA === 1) {
+        pointB++;
+        pointsB.innerHTML = pointB;
+      } else if (pointB === 14 && pointA <= 13) {
+        alert("win!!! B Team");
+        reset();
+      } else {
+        pointB++;
+        pointsB.innerHTML = pointB;
+      }
+    } else if (pointB >= 24 && pointB - pointA >= 1) {
       scoreB++;
       countsB.innerHTML = scoreB;
       wine();
-    } else if (pointB === 25 && pointA < 23) {
+    } else if (pointB >= 24 && pointB - pointA === 1) {
+      pointB++;
+      pointsB.innerHTML = pointB;
+    } else if (pointB === 24 && pointA < 23) {
       scoreB++;
       countsB.innerHTML = scoreB;
       wine();
